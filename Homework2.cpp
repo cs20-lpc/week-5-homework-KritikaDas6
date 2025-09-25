@@ -8,7 +8,28 @@ struct Node {
 
 // Floyd's cycle-finding algorithm (Tortoise and Hare)
 bool hasCycle(Node* head) {
-    // TO DO: Implement your code here. 
+    // std::cout<<"start";
+    // // TO DO: Implement your code here. 
+
+    if(head==nullptr || head->next == nullptr){
+         return false;
+    }
+
+    Node* Turtle= head->next;
+    Node* Hare= head->next->next;
+
+    while(Hare!=nullptr && Hare->next !=nullptr){
+        if(Hare==Turtle){
+            return true;
+        }
+        Turtle= Turtle->next;
+        Hare= Hare->next->next;
+    }
+
+    return false;
+
+
+
 }
 
 // Helper to create a singly linked list with n nodes. Returns head and optionally
@@ -47,6 +68,7 @@ int main() {
     const int N = 1000;
 
     // --- Test 1: List with NO cycle ---
+
     Node* head1 = createList(N);
       std::cout <<  (hasCycle(head1) ? "true " : "false ");
     // clean up
@@ -64,7 +86,7 @@ int main() {
      } else {
         std::cout << "Test 2 - Unexpected: tail is null.\n";
     }
-
+ 
     std::cout << (hasCycle(head2) ? "true" : "false") << "\n";
 
     // Break the cycle (so we can delete safely)
